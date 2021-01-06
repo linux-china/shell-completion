@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CLI JSON Schema",
+  "description": "CLI JSON Schema for clap-rs YAML",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "CLI name",
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "description": "Sets a string of author(s) that will be displayed to the user when they request the help message"
+    },
+    "about": {
+      "description": "Sets a string describing what the program does",
+      "type": "string"
+    },
+    "version": {
+      "description": "CLI version",
+      "type": "string"
+    },
+    "after_help": {
+      "type": "string",
+      "description": "Adds additional help information to be displayed at the end of the auto-generated help"
+    },
+    "before_help": {
+      "type": "string",
+      "description": "Adds additional help information to be displayed prior to the auto-generated help"
+    },
+    "args": {
+      "description": "arguments for CLI",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/Arg"
+        }
+      }
+    },
+    "subcommands": {
+      "description": "sub commands for CLI",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/Command"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "about"
+  ],
+  "definitions": {
+    "Arg": {
+      "type": "object",
+      "properties": {
+        "about": {
+          "type": "string",
+          "description": "short help text of the argument"
+        },
+        "allow_hyphen_values": {
+          "type": "boolean",
+          "description": "Allows values which start with a leading hyphen (-)"
+        },
+        "default_value": {
+          "type": "string",
+          "description": "Specifies the value of the argument when not specified at runtime"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Hides an argument from help message output. NOTE: This does not hide the argument from usage."
+        },
+        "index": {
+          "type": "number",
+          "description": "Specifies the index of a positional argument starting at 1."
+        },
+        "long": {
+          "type": "string",
+          "description": "Sets the long version of the argument without the preceding --"
+        },
+        "multiple": {
+          "type": "boolean",
+          "description": "Specifies that the argument may have an unknown number of multiple values. Without any other settings, this argument may appear only once."
+        },
+        "possible_values": {
+          "type": "array",
+          "description": "possible values",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Specifies that the argument is required by default"
+        },
+        "short": {
+          "type": "string",
+          "description": "Sets the short version of the argument without the preceding -"
+        },
+        "takes_value": {
+          "type": "boolean",
+          "description": "Specifies that the argument takes a value at run time"
+        },
+        "use_delimiter": {
+          "type": "boolean",
+          "description": "Specifies that an argument should allow grouping of multiple values via a delimiter, default is comma ,"
+        },
+        "value_hint": {
+          "type": "string",
+          "description": "Sets a hint about the type of the value for shell completions",
+          "enum": [
+            "AnyPath",
+            "FilePath",
+            "DirPath",
+            "ExecutablePath",
+            "CommandName",
+            "CommandString",
+            "CommandWithArguments",
+            "Username",
+            "Hostname",
+            "Url",
+            "EmailAddress"
+          ]
+        },
+        "value_name": {
+          "type": "string",
+          "description": "Specifies the name for value of option or positional arguments inside of help documentation"
+        }
+      },
+      "required": [
+        "about"
+      ]
+    },
+    "Command": {
+      "type": "object",
+      "properties": {
+        "about": {
+          "type": "string",
+          "description": "Sets a string describing what the command does"
+        },
+        "after_help": {
+          "type": "string",
+          "description": "Adds additional help information to be displayed at the end of the auto-generated help"
+        },
+        "aliases": {
+          "type": "array",
+          "description": "adds a multiple aliases for command",
+          "items": {
+            "type": "string"
+          }
+        },
+        "args": {
+          "description": "Adds multiple arguments to the list of valid possibilities.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Arg"
+            }
+          }
+        },
+        "author": {
+          "type": "string",
+          "description": "Sets a string of author(s) that will be displayed to the user when they request the help message"
+        },
+        "version": {
+          "type": "string",
+          "description": "Sets a string of the version number to be displayed when displaying the short format version message"
+        }
+      },
+      "required": [
+        "about"
+      ]
+    }
+  }
+}
